@@ -1,0 +1,35 @@
+<h2 class="bolded-blue" data-i18n='moral-announcement-header'></h2>
+<p data-i18n='moral-announcement-subheader-1'></p>
+<p><em data-i18n='moral-announcement-subheader-2'></em></p>
+
+<!-- #times Num, Num is number of items -->
+{{#times 1}}
+	<div class="irb-paragraph">
+		<strong class="irb-paragraph-header" data-i18n='moral-announcement-body-{{this}}-p1'></strong>
+		<p class="irb-paragraph-body" data-i18n='moral-announcement-body-{{this}}-p2'></p>
+	</div>
+{{/times}}
+
+
+<p data-i18n='moral-announcement-body-final'></p>
+<form id="consent-form">
+	<input type="checkbox" id="agree" onclick="checkBoxVerification()"/>
+	<label for="agree" data-i18n='moral-announcement-consent'></label>
+    <button disabled type="button" id="btn-agree-announcement" data-i18n="moral-intro-button" class="btn btn-secondary btn-sm btn btn-secondary custom-btn-left" onclick="nextPage()"></button>
+</form>
+
+<script type="text/javascript">
+    var checkBoxVerification = function (){
+        if($('#agree').is(':checked')){
+            $('#btn-agree-announcement').removeAttr('disabled');
+        }
+        else {
+            $('#btn-agree-announcement').attr('disabled', 'disabled');
+        }
+    }
+
+    // should be defined in server index.js
+    // var nextPage = function(){
+    //     $("#btn-next-page").click();
+    // }
+</script>

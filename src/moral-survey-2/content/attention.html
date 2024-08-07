@@ -1,0 +1,50 @@
+<div class="lar-middle">
+    <h4 class="h3 bolded-blue" data-i18n="moral-attend-title"></h4>
+    <p class="survey1-paragraph-body" data-i18n='moral-attend-p1' ></p>
+    <form id="attention-form" class="form needs-validation" novalidate>
+    <div class="d-flex flex-sm-column flex-md-row flex-wrap ">
+<!--        <div>-->
+<!--            <input type="radio" class="btn-check form-check-input" name="attention" id="attention-1" autocomplete="off" required data-value="1">-->
+<!--            <label class="btn  btn-light cho form-check-label" for="attention-1" data-i18n='moral-attention-la1'></label>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            <input type="radio" class="btn-check form-check-input" name="attention" id="attention-2" autocomplete="off" required data-value="2">-->
+<!--            <label class="btn  btn-light cho form-check-label" for="attention-2" data-i18n='moral-attention-la2'></label>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            <input type="radio" class="btn-check form-check-input" name="attention" id="attention-3" autocomplete="off" required data-value="3">-->
+<!--            <label class="btn btn-light cho form-check-label" for="attention-3" data-i18n='moral-attention-la3'></label>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            <input type="radio" class="btn-check form-check-input" name="attention" id="attention-4" autocomplete="off" required data-value="4">-->
+<!--            <label class="btn btn-light cho form-check-label" for="attention-4" data-i18n='moral-attention-la4'></label>-->
+<!--        </div>-->
+        <input type="radio" class="btn-check form-check-input" data-bs-toggle="collapse"    name="attention" id="attention-1" autocomplete="off" required>
+        <label class="btn btn-light jud form-check-label" for="attention-1" data-i18n='moral-attention-la1'></label><br>
+        <input type="radio" class="btn-check form-check-input" data-bs-toggle="collapse"    name="attention" id="attention-2"  autocomplete="off" required>
+        <label class="btn btn-light jud form-check-label" for="attention-2" data-i18n='moral-attention-la2'></label>
+        <input type="radio" class="btn-check form-check-input" data-bs-toggle="collapse"   name="attention" id="attention-3"  autocomplete="off" required>
+        <label class="btn btn-light jud form-check-label" for="attention-3" data-i18n='moral-attention-la3'></label><br>
+        <input type="radio" class="btn-check form-check-input" data-bs-toggle="collapse"   name="attention" id="attention-4" autocomplete="off" required>
+        <label class="btn btn-light jud form-check-label" for="attention-4" data-i18n='moral-attention-la4'></label>
+    </div>
+    <button type="button" class="btn btn-secondary custom-btn-left" onclick="check_attention()">Next</button>
+    </form>
+</div>
+
+<script>
+    function check_attention(){
+        attention = true
+        if($("#attention-form")[0].checkValidity()) {
+            if ($("#attention-3").is(":checked")){
+                attention = false
+            }
+            if ($("#attention-4").is(":checked")){
+                attention = false
+            }
+            nextPage();
+            passedValidation();
+        } else {  $('#attention-form').addClass('was-validated'); failedValidation();}
+    }
+
+</script>

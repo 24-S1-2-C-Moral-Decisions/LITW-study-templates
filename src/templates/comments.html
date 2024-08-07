@@ -1,86 +1,52 @@
-<h2 class="h3 bolded-blue" data-i18n="litw-comment-title"></h2>
-<span class="text-left" data-i18n="litw-comment-subtitle"></span>
+<div class="lar-middle">
+    <div class="col d-flex justify-content-center">
+      <h2 class="h3 bolded-blue" data-i18n="moral-comment-title"></h2>
+    </div>
+    <p class="survey1-paragraph-body" data-i18n='moral-comment-p1' ></p>
+         <div class="form-floating">
+          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea5" style="height: 150px"></textarea>
+          <label for="floatingTextarea5">Comments</label>
+        </div>
+        <p class="survey1-paragraph-body" data-i18n='moral-comment-p2' ></p>
+        <p class="survey1-paragraph-body" data-i18n='moral-comment-p3' ></p>
+        <p class="survey1-paragraph-body" data-i18n='moral-comment-p4' ></p>
+        <ul>
+          <li class="content"><span class="survey1-paragraph-body" data-i18n='moral-comment-s1'></span><a href="https://www.betterhelp.com/get-started/" target="_blank">https://www.betterhelp.com/get-started/ </a></li>
+          <li class="content"><span class="survey1-paragraph-body" data-i18n='moral-comment-s2'></span><br><a href="https://internationaltherapistdirectory.com/all-locations/" target="_blank">https://internationaltherapistdirectory.com/all-locations/  </a></li>
+        </ul>
+        <button type="button" id="comment-btn" class="btn btn-secondary btn btn-secondary custom-btn-left" onclick="nextPage()">Next</button>
+   
+  </div>
 
-<div id="commentsForm" style="text-align: left"></div>
-<script type="text/javascript">
+
+<script>
     $(document).ready(function() {
-        $("#commentsForm").alpaca({
-            "data": false,
-            "schema": {
-                "description": "LITW Comments",
-                "type": "object",
-                "properties": {
-                    "comment-general": {
-                        "title": $.i18n('litw-comment-q1'),
-                        "required": false,
-                        "type": "string",
-                    },
-                    "comment-hadissue": {
-                        "title": $.i18n('litw-comment-q21'),
-                        "enum": ['no', 'yes'],
-                        "required":false
-                    },
-                    "comment-issue": {
-                        "title": $.i18n('litw-comment-q22'),
-                        "type": "string",
-                        "required": false
-                    },
-                    "comment-didcheat": {
-                        "title": $.i18n('litw-comment-q31'),
-                        "enum": ['no', 'yes'],
-                        "required":false
-                    },
-                    "comment-cheat": {
-                        "title": $.i18n('litw-comment-q32'),
-                        "type": "string",
-                        "required":false
-                    }
-                },
-            },
-            "options": {
-                "fields": {
-                    "comment-general": {
-                        "type": "textarea"
-                    },
-                    "comment-hadissue": {
-                        "type": 'select',
-                        "optionLabels": [$.i18n('litw-demographics-no'),
-                            $.i18n('litw-demographics-yes')],
-                        "sort": false,
-                        "removeDefaultNone": true
-                    },
-                    "comment-issue": {
-                        "type": "textarea",
-                        "hidden": true
-                    },
-                    "comment-didcheat": {
-                        "type": 'select',
-                        "optionLabels": [$.i18n('litw-demographics-no'),
-                            $.i18n('litw-demographics-yes')],
-                        "sort": false,
-                        "removeDefaultNone": true
-                    },
-                    "comment-cheat": {
-                        "type": "textarea",
-                        "hidden": true
-                    },
-                }
-            },
-            "postRender": function(control) {
-                let hadissue = control.childrenByPropertyId["comment-hadissue"];
-                let issue = control.childrenByPropertyId["comment-issue"];
-                issue.subscribe(hadissue, function(val) {
-                    this.options.hidden = val !== 'yes';
-                    this.refresh();
-                });
-
-                let didcheat = control.childrenByPropertyId["comment-didcheat"];
-                let cheat = control.childrenByPropertyId["comment-cheat"];
-                cheat.subscribe(didcheat, function(val) {
-                    this.options.hidden = val !== 'yes';
-                    this.refresh();
-                });
+        $('#comment-btn').click(function() {
+            const startTime = sessionStorage.getItem('startTime');
+            let timeSpent = null
+            if (startTime) {
+                const endTime = new Date().getTime();
+                timeSpent = (endTime - startTime) / 1000;
+                console.log("Time spent: " + timeSpent + " seconds");
+                sessionStorage.removeItem('startTime');
             }
+
+            result.comments = $('#floatingTextarea5').val();
+            result.time = timeSpent
+            console.log(result)
+
+            // console.log(window.LITW.utils.APIBaseURL)
+            fetch(window.LITW.utils.APIBaseURL + 'survey/answer', {
+                method: 'POST',
+                headers: {
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(result)
+            }).then(response => response.json())
+                .then(data => console.log('Success:', data))
+                .catch((error) => console.error('Error:', error));
         });
     });
+
 </script>

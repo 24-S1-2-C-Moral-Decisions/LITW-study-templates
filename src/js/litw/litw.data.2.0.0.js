@@ -81,16 +81,16 @@
             /[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16))
         },
         _submit = function(obj_data, finalAttempt) {
-            $.ajax({
-                url: '/service/data/',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(obj_data),
-            }).fail(function(e) {
-                if (!finalAttempt) {
-                    _submit(obj_data, true);
-                }
-            });
+            // $.ajax({
+            //     url: '/service/data/',
+            //     type: 'POST',
+            //     contentType: 'application/json',
+            //     data: JSON.stringify(obj_data),
+            // }).fail(function(e) {
+            //     if (!finalAttempt) {
+            //         _submit(obj_data, true);
+            //     }
+            // });
         },
         submitData = function(data, dataType) {
             if (!params._isInitialized) {
