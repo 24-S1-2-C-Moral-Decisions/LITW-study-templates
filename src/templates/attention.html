@@ -1,0 +1,31 @@
+<div class="ms-5 me-5">
+    <h1 class="bolded-blue" data-i18n="moral-attention-title">###</h1>
+    <!-- <h2 class="bolded-blue"">{{check}}</h2> -->
+
+    <div class="fs-4 p-4 attention">
+
+        {{#if note}}
+            <p><i>{{note}}</i></p>
+        {{/if}}
+
+        <p class="bolded-blue">{{question}}</p>
+
+        <div class="container d-flex flex-column">
+            {{#each options}}
+                <div class="pb-2">
+                    <input type="radio" class="btn-check" name="attentionCheck" id="attention-{{@index}}" autocomplete="off">
+                    <label class="btn btn-outline-secondary btn-light w-100" for="attention-{{@index}}" onclick="MORAL.attention.attentionChoose('{{this}}')">{{this}}</label>
+                </div>
+            {{/each}}
+        </div>
+        <div class="invalid-feedback" data-i18n="moral-please-answer"></div>
+    </div>
+    <button
+        type="button"
+        class="btn btn-secondary custom-btn-left me-auto"
+        data-i18n="moral-next"
+        onclick="MORAL.attention.checkAttention('{{expextedList}}')"
+        >
+        Next
+    </button>
+</div>

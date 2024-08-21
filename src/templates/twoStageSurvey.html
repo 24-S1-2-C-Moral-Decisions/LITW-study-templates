@@ -1,0 +1,257 @@
+<div class="ms-5 me-5">
+    <h1 class="bolded-blue" data-i18n="moral-page-{{currentPage}}-{{totalPage}}">###</h1>
+
+    <h2 class="bolded-blue">{{pageTitle}}</h2>
+
+    <div class="container d-flex flex-column">
+        {{#if note}}
+            <div class="fs-6 p-4">
+                <span class="fs-5 bolded-blue">{{note.desc}}</span>
+                {{#each note.items}}
+                    <p>
+                        <span class="bolded-blue">{{this.title}}</span>
+                        {{#each this.desc}}
+                            </br>
+                            <span class="p-2">{{this}}</span>
+                        {{/each}}
+                    </p>
+                {{/each}}
+            </div>
+        {{/if}}
+
+        <div id="individual">
+            <h4 class="bolded-blue" data-i18n="moral-training-task1"></h4>
+            <div class="fs-4 judgment" style="line-height: 1.1;">
+                <p class="bolded-blue">{{question.title}}</p>
+                <p>{{question.selftext}}</p>
+                <p class="bolded-blue" data-i18n="moral-question-what-judgment"></p>
+                <div class="container d-flex flex-column">
+                    <div class="pb-2">
+                        <input type="radio" class="btn-check" name="individualJudgment" id="individual-YA" autocomplete="off">
+                        <label class="btn btn-outline-secondary btn-light w-100" for="individual-YA" data-i18n="moral-question-what-judgment-YA" onclick="MORAL.twoStageSurvey.setIndividualJudgment('YA')">###</label>
+                    </div>
+                    <div>
+                        <input type="radio" class="btn-check" name="individualJudgment" id="individual-NA" autocomplete="off">
+                        <label class="btn btn-outline-secondary btn-light w-100" for="individual-NA" data-i18n="moral-question-what-judgment-NA" onclick="MORAL.twoStageSurvey.setIndividualJudgment('NA')">###</label>
+                    </div>
+                    <div class="invalid-feedback" data-i18n="moral-please-answer"></div>
+                </div>
+            </div>
+
+            <div class="fs-4 pt-4 confident">
+                <p class="bolded-blueer" data-i18n='moral-question-how-confident'></p>
+                <div class="row row-cols-2 row-cols-sm-3 row-cols-md-5 g-2">
+                    {{#times 5}}
+                        <div class="col">
+                            <input type="radio" class="btn-check" name="individualConfident" id="individual-confident-{{this}}" autocomplete="off">
+                            <label class="btn btn-outline-secondary btn-light w-100 h-100 text-center flex-center" for="individual-confident-{{this}}" data-i18n="moral-question-confidence-{{this}}" onclick="MORAL.twoStageSurvey.setIndividualConfident('{{this}}')">###</label>
+                        </div>
+                    {{/times}}
+                </div>
+                <div class="invalid-feedback" data-i18n="moral-please-answer"></div>
+            </div>
+
+            <button
+                id="finalize"
+                type="button"
+                class="btn btn-secondary custom-btn-left me-auto"
+                data-i18n="moral-next"
+                onclick="MORAL.twoStageSurvey.finalizeJudgment()"
+                >
+                Next
+            </button>
+        </div>
+
+        <div id="group" class="mt-5">
+            <h4 class="bolded-blue" data-i18n="moral-training-task2-{{topic}}"></h4>
+
+            <div class="fs-4" style="line-height: 1.1;">
+
+                {{#if isRele}}
+                <div id="YA">
+                    <p class="bolded-blue">
+                        <span data-i18n="moral-question-relevant-YA1"></span>
+                        <ul>
+                            <li> <p>
+                                {{question.original_post_YA_top_reasonings.[0]}}
+                            </p></li>
+                            <li> <p">
+                                {{question.original_post_YA_top_reasonings.[1]}}
+                            </p></li>
+                            <li> <p>
+                                {{question.original_post_YA_top_reasonings.[2]}}
+                            </p></li>
+                        </ul>                
+                    </p>
+                </div>
+
+                <div id="NA" class="pb-3">
+                    <p class="bolded-blue">
+                        <span data-i18n="moral-question-relevant-YA1"></span>
+                        <ul>
+                            <li> <p>
+                                {{question.original_post_NA_top_reasonings.[0]}}
+                            </p></li>
+                            <li> <p>
+                                {{question.original_post_NA_top_reasonings.[1]}}
+                            </p></li>
+                            <li> <p>
+                                {{question.original_post_NA_top_reasonings.[2]}}
+                            </p></li>
+                        </ul>   
+                    </p>
+                </div>
+
+                {{else}}
+
+                {{#if isCon}}
+                <div id="YA">
+                    <img class="img-fluid" src="../img/{{topic}}/{{question._id}}.png" alt="{{topic}}/{{question._id}}">
+
+                    <p class="bolded-blue">
+                        <span data-i18n="moral-question-community-disagree-1"></span>
+                        <span>100</span>
+                        <span data-i18n="moral-question-community-disagree-2"></span>
+                        YA , {{question.very_certain_YA}}
+                        <span data-i18n="moral-question-community-disagree-3"></span>
+                        {{question.not_very_certain_YA}}
+                        <span data-i18n="moral-question-community-disagree-4"></span>
+                    </p>
+                </div>
+
+                <div id="NA" class="pb-3">
+                    <img class="img-fluid" src="../img/{{topic}}/{{question._id}}.png" alt="{{topic}}/{{question._id}}">
+
+                    <p class="bolded-blue">
+                        <span data-i18n="moral-question-community-disagree-1"></span>
+                        <span>100</span>
+                        <span data-i18n="moral-question-community-disagree-2"></span>
+                        NA , {{question.very_certain_NA}}
+                        <span data-i18n="moral-question-community-disagree-3"></span>
+                        {{question.not_very_certain_NA}}
+                        <span data-i18n="moral-question-community-disagree-4"></span>
+                    </p>
+                </div>
+                {{else}}
+                <div id="YA">
+                    <img class="img-fluid" src="../img/{{topic}}/{{question._id}}_YA.png" alt="{{topic}}/{{question._id}}">
+
+                    <p class="bolded-blue">
+                        <span data-i18n="moral-question-community-disagree-1"></span>
+                        <span>100</span>
+                        <span data-i18n="moral-question-community-disagree-2"></span>
+                        YA , {{question.very_certain_YA}}
+                        <span data-i18n="moral-question-community-disagree-3"></span>
+                        {{question.not_very_certain_YA}}
+                        <span data-i18n="moral-question-community-disagree-4"></span>
+                    </p>
+                </div>
+
+                <div id="NA" class="pb-3">
+                    <img class="img-fluid" src="../img/{{topic}}/{{question._id}}_NA.png" alt="{{topic}}/{{question._id}}">
+
+                    <p class="bolded-blue">
+                        <span data-i18n="moral-question-community-disagree-1"></span>
+                        <span>100</span>
+                        <span data-i18n="moral-question-community-disagree-2"></span>
+                        NA , {{question.very_certain_NA}}
+                        <span data-i18n="moral-question-community-disagree-3"></span>
+                        {{question.not_very_certain_NA}}
+                        <span data-i18n="moral-question-community-disagree-4"></span>
+                    </p>
+                </div>
+                {{/if}}
+
+                {{/if}}                                                     
+
+                <div class="container d-flex flex-column judgment">
+                    <div class="pb-2">
+                        <input type="radio" class="btn-check" name="groupJudgment" id="group-YA" autocomplete="off">
+                        <label class="btn btn-outline-secondary btn-light w-100" for="group-YA" data-i18n="moral-question-what-judgment-YA" onclick="MORAL.twoStageSurvey.setGroupJudgment('YA')">###</label>
+                    </div>
+                    <div>
+                        <input type="radio" class="btn-check" name="groupJudgment" id="group-NA" autocomplete="off">
+                        <label class="btn btn-outline-secondary btn-light w-100" for="group-NA" data-i18n="moral-question-what-judgment-NA" onclick="MORAL.twoStageSurvey.setGroupJudgment('NA')">###</label>
+                    </div>
+                    <div class="invalid-feedback" data-i18n="moral-please-answer"></div>
+                    <div class="pt-2" class="collapse">
+                        <p id="judgmentResult" class="survey1-paragraph-body mid-font bolded-blueer">
+                            <span id="judgmentSame" data-i18n="moral-question-judgment-same"></span>
+                            <span id="judgmentChange_NA">
+                                <span data-i18n="moral-question-judgment-change"></span>
+                                <span data-i18n="moral-question-what-judgment-YA"></span>
+                            </span>
+                            <span id="judgmentChange_YA">
+                                <span data-i18n="moral-question-judgment-change"></span>
+                                <span data-i18n="moral-question-what-judgment-NA"></span>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="fs-4 pt-4 confident container">
+                    <p class="bolded-blueer" data-i18n='moral-question-how-confident'></p>
+                    <div class="row row-cols-2 row-cols-sm-3 row-cols-md-5 g-2">
+                        {{#times 5}}
+                            <div class="col">
+                                <input type="radio" class="btn-check" name="groupConfident" id="group-confident-{{this}}" autocomplete="off">
+                                <label class="btn btn-outline-secondary btn-light w-100 h-100 text-center flex-center" for="group-confident-{{this}}" data-i18n="moral-question-confidence-{{this}}" onclick="MORAL.twoStageSurvey.setGroupConfident('{{this}}')">###</label>
+                            </div>
+                        {{/times}}
+                    </div>
+                    <span class="invalid-feedback" data-i18n="moral-please-answer"></span>
+                    <div class="pt-2">
+                        <p id="confidentResult" class="survey1-paragraph-body mid-font bolded-blueer">
+                            <span id="confidentSame" data-i18n="moral-question-confidence-same"></span>
+                            <span id="confidentChange">
+                                <span data-i18n="moral-question-confidence-change"></span>
+                                <span id="prev-confident" > ### </span>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+
+                {{#unless isTraing}}
+                    <div class="fs-4 pt-4">
+                        <label for="comment" class="form-label bolded-blue" data-i18n="moral-question-comment"></label>
+                        <textarea class="form-control" id="comment" rows="3" placeholder="any comments"></textarea>
+                    </div>
+                {{/unless}}
+            </div>
+            {{#if isTraing}}
+                <p id="training-end" class="fs-6 pt-4 bolded-blue" data-i18n="moral-training-end"></p>
+                <button
+                    type="button"
+                    class="btn btn-secondary custom-btn-left me-auto"
+                    data-i18n="moral-next"
+                    onclick="MORAL.twoStageSurvey.tryNext(true, '{{question._id}}')"
+                    >
+                    Next
+                </button>
+            {{else}}
+                <button
+                    id="next"
+                    type="button"
+                    class="btn btn-secondary custom-btn-left me-auto"
+                    data-i18n="moral-next"
+                    onclick="MORAL.twoStageSurvey.tryNext(false, '{{question._id}}')"
+                    >
+                    Next
+                </button>
+            {{/if}}
+        </div>
+    </div>
+</div>
+{{#if isTraing}}
+    <script>
+        $("#training-end").hide();
+        // add an extra EventListener 
+        $("#group input").on("click", function() {
+                console.log($("#group input:checked").length);
+                if ($("#group input:checked").length == 2) {
+                    $("#training-end").show();
+                }
+            }
+        );
+    </script>
+{{/if}}

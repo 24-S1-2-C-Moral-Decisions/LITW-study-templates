@@ -1,0 +1,112 @@
+<div class="ms-5 me-5">
+    <h1 class="bolded-blue" data-i18n="moral-page-{{currentPage}}-{{totalPage}}">###</h1>
+    <h2 class="bolded-blue"">{{pageTitle}}</h2>
+
+    {{#if note}}
+        <div class="fs-6 pt-3 pb-3">
+            <span class="fs-5 bolded-blue" data-i18n="moral-survey-note"></span>
+            <span class="p-2">{{note}}</span>
+        </div>
+    {{/if}}
+      
+    <p class="fs-5 bolded-blue pt-5">{{question.title}}</p>
+
+    <table class="table table-striped table-hover container text-center">
+        <!-- table header -->
+        <thead>
+            <tr>
+                <td class="border-0 row">
+                    <div class="col-12 col-md-{{questionBlockSize}}">
+                    
+                    </div>
+                    <div class="col-12 col-md-{{optionBlockSize}}">
+                        <div class="row align-items-end">
+                            {{#each dimensions}}
+                                <div class="col-12 col-sm-6 col-md-4 col-lg p-2 border-bottom">
+                                    {{this}}
+                                </div>
+                            {{/each}}
+                            <!-- <div class="col-12 col-sm-6 col-md-4 col-lg p-2 border-bottom">
+                                disagree
+                            </div>
+                            <div class="col-12 col-md-4 col-lg p-2 border-bottom">
+                                somewhat disagree
+                            </div>
+                            <div class="col-12 col-lg p-2 border-bottom">
+                                niether agree nor disagree
+                            </div>
+                            <div class="col-12 col-md-4 col-lg p-2 border-bottom">
+                                somewhat agree
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-4 col-lg p-2 border-bottom">
+                                agree
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-4 col-lg p-2 border-bottom">
+                                strongly agree
+                            </div> -->
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </thead>
+        
+        <tbody>
+            {{#each question.items}}
+                <tr>
+                    <td class="row align-items-center likert-scale-item">
+                        <div class="col-12 col-md-{{../questionBlockSize}} text-start">
+                            {{this}}
+                        </div>
+                        <div class="col-12 col-md-{{../optionBlockSize}}">
+                            <div class="row align-items-center">
+                                {{#each ../dimensions}}
+                                    <div class="col-12 col-sm-6 col-md-4 col-lg">
+                                        <input class="form-check-input" id="option-{{@../index}}-0" type="radio" name="question-{{@../index}}" value="{{@index}}" aria-label="{{this}}">
+                                        <label for="option-{{@../index}}-0" class="likert-scale-option"></label>
+                                    </div>
+                                {{/each}}
+                                <!-- <div class="col-12 col-sm-6 col-md-4 col-lg">
+                                    <input class="form-check-input" type="radio" id="option-{{@index}}-1" name="question-{{@index}}" value="1" aria-label="disagree">
+                                    <label for="option-{{@index}}-1" class="likert-scale-option"></label>
+                                </div>
+                                <div class="col-12 col-md-4 col-lg">
+                                    <input class="form-check-input" type="radio" id="option-{{@index}}-2" name="question-{{@index}}" value="2" aria-label="somewhat disagree">
+                                    <label for="option-{{@index}}-2" class="likert-scale-option"></label>
+                                </div>
+                                <div class="col-12 col-lg">
+                                    <input class="form-check-input" type="radio" id="option-{{@index}}-3" name="question-{{@index}}" value="3" aria-label="niether agree nor disagree">
+                                    <label for="option-{{@index}}-3" class="likert-scale-option"></label>
+                                </div>
+                                <div class="col-12 col-md-4 col-lg">
+                                    <input class="form-check-input" type="radio" id="option-{{@index}}-4" name="question-{{@index}}" value="4" aria-label="somewhat agree">
+                                    <label for="option-{{@index}}-4" class="likert-scale-option"></label>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-4 col-lg">
+                                    <input class="form-check-input" type="radio" id="option-{{@index}}-5" name="question-{{@index}}" value="5" aria-label="agree">
+                                    <label for="option-{{@index}}-5" class="likert-scale-option"></label>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-4 col-lg">
+                                    <input class="form-check-input" type="radio" id="option-{{@index}}-6" name="question-{{@index}}" value="6" aria-label="strongly agree">
+                                    <label for="option-{{@index}}-6" class="likert-scale-option"></label>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="col-12 invalid-feedback" data-i18n="moral-please-answer"></div>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <p class="invalid-feedback" id="invalid-feedback" data-i18n="moral-please-answer"></p>
+
+    <button
+        id="next"
+        type="button"
+        class="btn btn-secondary custom-btn-left me-auto"
+        data-i18n="moral-next"
+        onclick="MORAL.likertScale.tryNext()"
+        >
+        Next
+    </button>
+</div>
