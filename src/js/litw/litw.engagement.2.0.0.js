@@ -25,15 +25,15 @@
 	 * @param callback function that processes a list of JSON objects in the format: {STUDY_URL, LOGO_URL, SLOGAN, DESCRIPTION}
 	 */
     function getStudiesRecommendation(maxStudies = 2, callBack) {
-		fetch(`/config/${LITW.study.params.study_id}/study_references`)
-			.then((response) => {
-		  		response.json().then((result) => {
-			  		callBack(result);
-		  		})
-			}).catch(function(err) {
-		  		console.log('[FETCH ERROR]: Could not get Studies Recommendations', err);
-		  		callBack([]);
-		});
+		// fetch(`/config/${LITW.study.params.study_id}/study_references`)
+		// 	.then((response) => {
+		//   		response.json().then((result) => {
+		// 	  		callBack(result);
+		//   		})
+		// 	}).catch(function(err) {
+		//   		console.log('[FETCH ERROR]: Could not get Studies Recommendations', err);
+		//   		callBack([]);
+		// });
     }
 
 	/**
