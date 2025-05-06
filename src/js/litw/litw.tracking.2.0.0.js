@@ -31,7 +31,7 @@
 		if(Object.keys(info).length > 0) {
 			data = _.merge(data, info)
 		}
-		LITW.data.submitData(data, "litw:tracking");
+		// LITW.data.submitData(data, "litw:tracking");
 	}
 
 	let recordCheckpoint = function(slide_name) {

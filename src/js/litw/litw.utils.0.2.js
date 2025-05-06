@@ -232,24 +232,66 @@
             }
         },
 
-        getParamsURL = function() {
-            let result = {};
-            let paramsURL = (new URL(document.location)).searchParams;
-            for (let key of paramsURL.keys()) {
-                result[key] = paramsURL.get(key);
+        getRequestParams = function () {
+            let urlSearchParams = new URLSearchParams(window.location.search);
+            return Object.fromEntries(urlSearchParams.entries());
+        },
+
+        fetchQuestions = async function() {
+            const response = await fetch( Utils.APIBaseURL + 'survey/question?studyId=' + LITW.data.getStudyId(), {
+                method: 'GET',
+                headers: {
+                    'Accept': '*/*'
+                },
+            });
+            if (!response.ok) {
+                throw new Error(response);
             }
-            return result;
-        };
+            return await response.json();
+        },
+
+        postProlificInfo = function(data) {
+            data['id'] = LITW.data.getStudyId();
+            fetch(Utils.APIBaseURL + 'survey/prolific', {
+                method: 'POST',
+                headers: {
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(response => response.json())
+                .then(res => console.log('Success:', res))
+                .catch((error) => console.error('Error:', error));
+        },
+
+        doTranslation = function(str) {
+            return str;
+        },
+
+        saveResultData = function(data) {
+            LITW.data.result = {
+                ...LITW.data.result,
+                ...data
+            }
+        }
+        ;
 
 
     /**** PUBLIC METHODS ****/
-    exports.utils = {};
+    var Utils = {
+        APIBaseURL: "https://moralmomentapi.azurewebsites.net/",
+    }
+    exports.utils = Utils;
     exports.utils.showNextButton = showNextButton;
     exports.utils.hideNextButton = hideNextButton;
     exports.utils.showSlide = showSlide;
     exports.utils.showLoadingIcon = showLoadingIcon;
     exports.utils.hideLoadingIcon = hideLoadingIcon;
     exports.utils.shuffleArrays = shuffleArrays;
-    exports.utils.getParamsURL = getParamsURL;
+    exports.utils.getRequestParams = getRequestParams;
+    exports.utils.fetchQuestions = fetchQuestions;
+    exports.utils.updateProlificInfo = postProlificInfo;
+    exports.utils.doTranslation = doTranslation;
+    exports.utils.saveResultData = saveResultData;
 
 })(window.LITW = window.LITW || {});
