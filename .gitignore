@@ -6,3 +6,5 @@ api/db/template.db
 api/src/vendor/*
 node_modules/
 src/include/config.php
+**/bundle-model.min.js*
+build/
