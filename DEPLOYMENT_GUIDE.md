@@ -14,9 +14,6 @@ moral-survey/
     ├── moral-survey-4/          # Survey 4 (relevant-reasonings)
     └── moral-survey-5/          # Survey 5 (control)
 ```
-## Push Test
-
-Literially a test.
 
 ## Frontend Environment Variables Configuration
 
