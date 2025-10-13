@@ -290,7 +290,7 @@
 
     /**** PUBLIC METHODS ****/
     var Utils = {
-        APIBaseURL: window.API_URL || "http://localhost:3001/", // Use webpack injected API_URL or fallback
+        APIBaseURL: window.API_URL || "http://115.146.86.210:3001/", // Use webpack injected API_URL or fallback
     }
     exports.utils = Utils;
     exports.utils.showNextButton = showNextButton;
