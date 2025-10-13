@@ -16,8 +16,8 @@ permissions:
   id-token: write
 
 env:
- API_URL: http://localhost:3001/
- MORAL_URL: http://localhost:3000/
+ API_URL: http://115.146.86.210:3001/
+ MORAL_URL: http://115.146.86.210:3000/
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
